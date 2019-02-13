@@ -13,7 +13,7 @@ import sys
 import argparse
 import re
 
-from layer3process import process_incoming, process_outgoing
+from proxyprocess import process_incoming, process_outgoing
 import proxyio
 
 
@@ -157,8 +157,4 @@ def parse_args():
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("\nExiting... ")
-        exit()
+    main()
