@@ -26,6 +26,8 @@ def error(string):
     if verbosity >= QUIET:
         print(f"[!] {string}")
 
+def get(string):
+    return input(f"[#] {string}")
 
 def init(v_level):
     global verbosity

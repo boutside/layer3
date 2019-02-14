@@ -14,6 +14,7 @@ import argparse
 import re
 
 from proxyprocess import process_incoming, process_outgoing
+import proxyprocess
 import proxyio
 
 
@@ -25,6 +26,7 @@ def main():
 
     # Parse arguments into ARGS global variable
     parse_args()
+    proxyprocess.init(ARGS)
     proxyio.init(ARGS.verbose)
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -148,10 +150,12 @@ def parse_args():
 
     parser = argparse.ArgumentParser(description="Layer 3 TCP proxy")
     parser.add_argument("--target", "-t", required=True)
-    parser.add_argument("--target_port", "-tp", type=int, required=True)
+    parser.add_argument("--target-port", "-tp", type=int, required=True)
     parser.add_argument("--listener", "-l", default="127.0.0.1")
-    parser.add_argument("--listener_port", "-lp", type=int, default=1234)
+    parser.add_argument("--listener-port", "-lp", type=int, default=1234)
     parser.add_argument("-v", "--verbose", action="count", default=0)
+    parser.add_argument("-if", "--incoming-filter")
+    parser.add_argument("-of", "--outgoing-filter")
 
     ARGS = parser.parse_args()
 
